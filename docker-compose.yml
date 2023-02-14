@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+  reverse-proxy:
+    image: traefik:latest
+    command: 
+      - --providers.docker=true
+      - --api.insecure=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=web
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  couchdb:
+    image: couchdb:3.3.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.couchdb.rule=Host(`localhost`) && Path(`/couchdb`)"
+      - "traefik.docker.network=web"
+      - "traefik.port=5984"
+
+  compute:
+    image: compute_engine:latest
+    command: uvicorn app:app --host 0.0.0.0
+    expose: 
+      - 8000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.compute.rule=Host(`localhost`) && Path(`/compute`)"
+      - "traefik.docker.network=web"
+      - "traefik.port=4000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    expose:
+      - 3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      #- "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`) && Path(`/`)"
+      #- "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      #- "traefik.port=3000"
