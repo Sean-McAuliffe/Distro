@@ -26,7 +26,10 @@ services:
       - "traefik.port=5984"
 
   compute:
-    image: compute_engine:latest
+    build:
+      context: ./compute
+      dockerfile: Dockerfile
+    #image: compute_engine:latest
     command: uvicorn app:app --host 0.0.0.0
     expose: 
       - 8000
@@ -36,16 +39,16 @@ services:
       - "traefik.docker.network=web"
       - "traefik.port=4000"
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    expose:
-      - 3000
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      #- "traefik.http.routers.frontend.entrypoints=web"
-      - "traefik.http.routers.frontend.rule=Host(`localhost`) && Path(`/`)"
-      #- "traefik.http.services.frontend.loadbalancer.server.port=3000"
-      #- "traefik.port=3000"
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   expose:
+  #     - 3000
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.docker.network=web"
+  #     #- "traefik.http.routers.frontend.entrypoints=web"
+  #     - "traefik.http.routers.frontend.rule=Host(`localhost`) && Path(`/`)"
+  #     #- "traefik.http.services.frontend.loadbalancer.server.port=3000"
+  #     #- "traefik.port=3000"
