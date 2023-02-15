@@ -10,14 +10,18 @@ from analysis_handler.analysis import Analysis_Handler
 """
 uvicorn app:app --port 5000
 
+2/15/23: changes to pipeline function, wrapped each 
+section in a try except block for error handling
 
+untested as of 2/15/23 
 
+TODO: move export logic into its own file/class
 """
 
 app = FastAPI(title='Compute Test', description='this api is attached to the template-engine for compute', version="1.0")
 
 
-
+##this needs to be moved to its own file, no need for it here
 def handle_export(df, export_obj):
     print("INFO:: beginning task - export")
     where = export_obj['where']

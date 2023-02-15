@@ -1,3 +1,8 @@
+# possible TODO? 
+# keycloak for authentication? can use SAML/JWT from their own authsetup, 
+# otherise just use keycloak....
+# does this make sense for local though?? 
+#
 version: '3.9'
 services:
   reverse-proxy:
