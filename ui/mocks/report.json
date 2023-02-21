@@ -1,0 +1,68 @@
+{
+    "_id":"testReportV1",
+    "name": "test config",
+    "datasources": [{
+        "type": "csv",
+        "location": "data/",
+        "name": "data.csv",
+        "vars": {}
+    }],
+    "tasks": {
+        "prep": {
+            "name": "prepare data",
+            "step_order": [
+                "filter by gender",
+                "filter by year"
+            ],
+            "steps": [
+                {
+                    "id": "filter by gender",
+                    "type": "filter",
+                    "vars": {
+                        "column": "gender",
+                        "operator": "=",
+                        "value": "Male"
+                    }
+                },
+                {
+                    "id": "filter by year",
+                    "type": "filter",
+                    "vars": {
+                        "column": "car_year",
+                        "operator": ">",
+                        "value": 1990
+                    }
+                }
+            ]
+        },
+        "analysis": {
+            "name": "example analysis",
+            "step_order": [
+                "group by year & count"
+            ],
+            "steps": [
+                {
+                    "id": "group by year & count",
+                    "type": "groupby",
+                    "vars": {
+                        "column": "car_make",
+                        "agg": "count",
+                        "sort": "true",
+                        "sort_how": "desc"
+                    }
+                }
+            ]
+        },
+        "export": {
+            "name": "export to csv test",
+            "filetype": "csv",
+            "where": {
+                "location_type": "local",
+                "vars": {
+                    "location": "./",
+                    "name": "report"
+                }
+            }
+        }
+    }
+}
