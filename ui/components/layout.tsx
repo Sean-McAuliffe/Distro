@@ -1,29 +1,29 @@
 import Link from "next/link";
 import { ChartBarSquareIcon } from "@heroicons/react/24/outline";
 import {HomeIcon} from "@heroicons/react/24/outline";
+import { useState } from "react";
 
 
 
 
 const Layout = ({ children }: any) => {
-    
-    
+    const linkCSS = "hover:bg-accent hover:text-base rounded-l-xl mt-2"
     const issues = 0;
     return (
         <div className="min-w-screen min-h-screen flex">
-            <div className="w-[15%] min-h-screen  bg-base-100">
-                <div className="flex-1 w-full px-5">
-                    <a className="btn btn-ghost normal-case text-xl mx-auto">Distro</a>
+            <div className="w-[15%] min-h-screen  bg-base-content  ">
+                <div className="flex-1 w-full p-3 bg-base-content h-12">
+                    <span className=" h-full w-full text-center text-base-100 normal-case text-xl mx-auto">Distro</span>
                 </div>
-                {/* <div className="divider"></div> */}
+      
                 <div className="w-full p-3">
-                    <ul className="menu text-base">
+                    <ul className="menu text-base-100">
                         <li>
-                            <Link href='/'  className="hover:bg-primary hover:text-base">
+                            <Link href='/'  className={linkCSS}>
                                 <HomeIcon className="w-5 h-5"/>
                                 <span>Home</span>
                             </Link>
-                            <Link href='/reports'   className="hover:bg-primary hover:text-base">
+                            <Link href='/reports'   className={linkCSS}>
                                 <ChartBarSquareIcon className="w-5 h-5"/>
                                 <span>Create Report</span>
                             </Link>
@@ -32,24 +32,10 @@ const Layout = ({ children }: any) => {
                 </div>
             </div>
             <div className="w-[85%] min-h-screen bg-base-300">
-                <div className="w-full h-16 bg-base-100 shadow navbar">
+                <div className="w-full bg-base-100  navbar shadow">
                     <div className="h-full px-2 text-left w-1/3  navbar-start">
 
-                    <div className="dropdown dropdown-bottom bg-base-100">
-                    <select className="gradientselect bg-base-100 " data-choose-theme>
-                            <option disabled value="">
-                            Pick a theme
-                            </option>
-                            <option className="text-base" value="dark">Dark</option>
-                            <option value="light">Light</option>
-                            <option value="corporate">Corporate</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="business">Business</option>
-                            <option value="cmyk">Cmyk</option>
-                            <option value="autumn">Autumn</option>
-                            <option value="winter">Winter</option>
-                    </select>
-                    </div>
+
                     </div>
                     <div className="h-full px-2 text-center w-1/3">
 
@@ -71,13 +57,13 @@ const Layout = ({ children }: any) => {
 
                         </Link>
                         <div className="avatar placeholder">
-                            <div className="bg-primary-focus text-neutral-content rounded-full w-8">
+                            <div className="bg-base-content text-base-100 rounded-full w-8">
                                 <span>SM</span>
                             </div>
                         </div>
                         <div className="flex-none dropdown dropdown-bottom dropdown-end">
                             <button className="btn btn-square btn-ghost">
-                                <label tabIndex={0} className="m-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5  stroke-primary"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg></label>
+                                <label tabIndex={0} className="m-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5  stroke-base-content"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg></label>
                             </button>
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 border-[1px] border-base-300 rounded-box w-52">
                                 <li><Link className="text-base" href='/'>Settings</Link></li>

@@ -42,7 +42,7 @@ export const ThemeContextProvider = ({
     (html as any).setAttribute("data-theme", newTheme);
   };
 
-
+  console.log(theme)
   const handleThemeChange = (theme: string) => {
     setTheme(theme);
     applyTheme(theme);

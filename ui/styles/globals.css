@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.navbar {
+    @apply h-12; 
+    @apply min-h-12;
+}

@@ -1,8 +1,3 @@
-# possible TODO? 
-# keycloak for authentication? can use SAML/JWT from their own authsetup, 
-# otherise just use keycloak....
-# does this make sense for local though?? 
-#
 version: '3.9'
 services:
   reverse-proxy:
@@ -15,7 +10,9 @@ services:
       - --entrypoints.web.address=:80
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -26,7 +23,7 @@ services:
       - COUCHDB_PASSWORD=password
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.couchdb.rule=Host(`localhost`) && Path(`/couchdb`)"
+      - "traefik.http.routers.couchdb.rule=Host(`couchdb.docker.localhost`)"
       - "traefik.docker.network=web"
       - "traefik.port=5984"
 
@@ -35,12 +32,12 @@ services:
       context: ./compute
       dockerfile: Dockerfile
     #image: compute_engine:latest
-    command: uvicorn app:app --host 0.0.0.0
+    command: "uvicorn app:app --host 0.0.0.0"
     expose: 
       - 8000
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.compute.rule=Host(`localhost`) && Path(`/compute`)"
+      - "traefik.http.routers.compute.rule=Host(`compute.docker.localhost`)"
       - "traefik.docker.network=web"
       - "traefik.port=4000"
 
@@ -48,12 +45,11 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
-    expose:
-      - 3000
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      #- "traefik.http.routers.frontend.entrypoints=web"
-      - "traefik.http.routers.frontend.rule=Host(`localhost`) && Path(`/`)"
-      #- "traefik.http.services.frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.rule=Host(`app.docker.localhost`) && PathPrefix(`/`)"
+      - "traefik.http.middlewares.frontend-autodetect.contenttype.autodetect=false"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
       #- "traefik.port=3000"

@@ -84,7 +84,7 @@ async def pipeline(obj:dict=None):
 
     return {"status":"OK",
             "statusCode": 200,
-            "statusDate": str(datetime.now())
+            "statusDate": str(datetime.now()),
             "data":data.write_json()}
 
     
