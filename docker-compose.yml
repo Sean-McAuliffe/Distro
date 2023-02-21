@@ -46,7 +46,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./ui
       dockerfile: Dockerfile
     expose:
       - 3000
