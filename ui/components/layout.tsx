@@ -25,9 +25,9 @@ const Layout = ({ children }: any) => {
                                 <HomeIcon className="w-5 h-5" />
                                 <span>Home</span>
                             </Link>
-                            <Link href='/reports' className={linkCSS}>
+                            <Link href='/create-report' className={linkCSS}>
                                 <ChartBarSquareIcon className="w-5 h-5" />
-                                <span>Reports</span>
+                                <span>Create Report</span>
                             </Link>
                         </li>
                     </ul>
