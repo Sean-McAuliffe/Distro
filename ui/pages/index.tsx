@@ -2,16 +2,24 @@ import Layout from "@/components/layout";
 import { themeChange } from 'theme-change';
 import { useEffect } from "react";
 import * as Nano from 'nano';
-
-import Link from "next/link";
-import { useRouter } from "next/router";
 import StatCard from "@/components/statCard";
+import ReportTable from "@/components/reportTable";
 
+type Report = {
+  reportID:string,
+  createdOn:string,
+  sources:string,
+  lastRun:string
+}
+
+const data:Array<Report> = [
+  { reportID: "Example Report V1", createdOn: "2/12/2023", sources: "excel", lastRun: "2/22/2023" },
+  { reportID: "Example Report V2", createdOn: "2/10/2023", sources: "sql", lastRun: "2/22/2023" }
+]
+
+console.log(typeof data)
 function Home() {
-  const router = useRouter();
-  const ROUTE_POST_ID = "reports/[report]";
 
-  let num_reports = 0
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -29,29 +37,7 @@ function Home() {
           <div className=" p-3 stat-title w-full">
             Reports
           </div>
-          <div className="table w-full ">
-            <table className="table w-full">
-              <thead>
-                <tr >
-                  <td>
-                    Report ID
-                  </td>
-                  <td>
-                    Created On
-                  </td>
-                  <td>
-                    Data Sources
-                  </td>
-                  <td>
-                    Last Run
-                  </td>
-                  <td>
-                    
-                  </td>
-                </tr>
-              </thead>
-            </table>
-          </div>
+          <ReportTable data={data}/>
         </div>
 
       </div>
