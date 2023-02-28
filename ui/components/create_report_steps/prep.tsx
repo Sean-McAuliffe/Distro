@@ -62,7 +62,7 @@ const PrepWidget = () => {
 
     const handleStepColumn = (e, id: number) => {
         const currentRow = rows.findIndex((row) => row.id == id);
-        const updatedRow = { ...rows[currentRow],  };
+        const updatedRow = { ...rows[currentRow],  column: e.target.value};
         const newRows = [
             ...rows.slice(0, currentRow),
             updatedRow,
@@ -181,7 +181,7 @@ const PrepWidget = () => {
                                         </label>
                                         <input onChange={(e) => handleStepValue(e, row.id)} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                                     </div>
-                                    <div className="w-1/4 form-control">
+                                    <div className="w-1/12 form-control">
                                         <button onClick={() => removeRow(row.id)} className="btn btn-circle btn-xs btn-error text-base-100">
                                             X
                                         </button>
