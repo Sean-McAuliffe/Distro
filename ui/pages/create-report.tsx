@@ -4,6 +4,9 @@ import BasicInfoWidget from "@/components/create_report_steps/basic_info";
 import DataSourceWidget from "@/components/create_report_steps/data_sources";
 import PrepWidget from "@/components/create_report_steps/prep";
 import AnalysisWidget from "@/components/create_report_steps/analysis";
+import ExportWidget from "@/components/create_report_steps/export";
+
+
 
 type DataSource = {
   value: string,
@@ -16,7 +19,7 @@ type CreateReportProps = {
 
 function CreateReport(props: CreateReportProps) {
 
-  const [activeStep, setActiveStep] = useState(3)
+  const [activeStep, setActiveStep] = useState(4)
   const [sources, setSources] = useState([]);
 
 
@@ -50,7 +53,7 @@ function CreateReport(props: CreateReportProps) {
         return <AnalysisWidget />
       }
       case (4): {
-        return <div>4</div>
+        return <ExportWidget/>
       }
     }
   }

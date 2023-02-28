@@ -93,7 +93,7 @@ const AnalysisWidget = () => {
     return (
         <div className="w-full h-full p-2 flex flex-col gap-3 card">
             <div className="card-title w-full">
-                Analysis Steps
+                Analysis
             </div>
             <div className="card-body">
                 {rows.map((row) => {
