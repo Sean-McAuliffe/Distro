@@ -1,69 +1,77 @@
 import Layout from "@/components/layout";
 import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { ChevronUpIcon } from "@heroicons/react/24/outline";
+import BasicInfoWidget from "@/components/create_report_steps/basic_info";
+import DataSourceWidget from "@/components/create_report_steps/data_sources";
 
-function CreateReport() {
+type DataSource = {
+  value: string,
+  label: string
+}
 
-  const openCSS = " card-content w-full h-[fit-content] transition ease-in-out delay-150 "
-  const closedCSS = " transition ease-in-out delay-150 hidden"
+type CreateReportProps = {
+  datasources: Array<DataSource>
+}
 
-  const [basic, setBasic] = useState(false)
+function CreateReport(props: CreateReportProps) {
 
+  const [activeStep, setActiveStep] = useState(1)
+  const [sources, setSources] = useState([]);
+
+
+  const setStep = (index: number) => {
+    setActiveStep(index)
+  }
+
+  const setStepCSS = (step: number) => {
+    if (activeStep >= step) {
+      return "cursor-pointer step step-accent"
+    }
+    else {
+      return "cursor-pointer step"
+    }
+  }
+
+
+
+  const displayWidget = () => {
+    switch (activeStep) {
+      case (0): {
+        return <BasicInfoWidget />
+      }
+      case (1): {
+        return <DataSourceWidget selected={sources} func={setSources} data={props.datasources} />
+      }
+      case (2): {
+        return <div>2</div>
+      }
+      case (3): {
+        return <div>3</div>
+      }
+      case (4): {
+        return <div>4</div>
+      }
+    }
+  }
 
 
   return (
 
-    <div className="w-full flex flex-col gap-1 p-2 ">
+    <div className="w-full flex  gap-1 p-2 ">
 
-      <div className="w-full h-full bg-base-100 rounded-lg p-3 items-center justify-center">
+      <div className="w-1/5 h-full bg-base-100 rounded-lg p-3 items-center justify-center">
         <div className="mx-auto ">
-          <ul className="steps">
-            <li className="step step-accent">Basic Info</li>
-            <li className="step">Data Sources</li>
-            <li className="step">Prep</li>
-            <li className="step">Analysis</li>
-            <li className="step">Export</li>
+          <ul className="steps steps-vertical">
+            <li onClick={() => setStep(0)} className={setStepCSS(0)}>Basic Info</li>
+            <li onClick={() => setStep(1)} className={setStepCSS(1)}>Data Sources</li>
+            <li onClick={() => setStep(2)} className={setStepCSS(2)}>Prep</li>
+            <li onClick={() => setStep(3)} className={setStepCSS(3)}>Analysis</li>
+            <li onClick={() => setStep(4)} className={setStepCSS(4)}>Export</li>
           </ul>
         </div>
       </div>
-
-      <div className="w-full h-[fit-content] bg-base-100 rounded-lg p-3 items-center justify-center">
-        <div className="card p-2 flex">
-          <div onClick={() => setBasic(!basic)} className="select-none cursor-pointer w-full card-title text-lg text-base-content">
-            <div className="w-5/6">Basic Info</div>
-            <div className="w-1/6 text-right">
-              {basic == true ? <ChevronUpIcon className="w-8 h-8" /> : <ChevronDownIcon className="w-8 h-8" />}
-            </div>
-          </div>
-          <div className={basic == true ? openCSS : closedCSS}>
-            <div className="form-control gap-2">
-              <label className="label">
-                <span className="label-text">Report Name</span>
-              </label>
-              <label className="input-group input-group-md">
-                <span>Name</span>
-                <input type="text" placeholder="info@site.com" className="input input-bordered" required={true} />
-              </label>
-              <label className="label">
-                <span className="label-text">Report Category</span>
-              </label>
-              <label className="input-group input-group-md">
-                <select required={true} className="select select-bordered">
-                  <option disabled selected>Pick category</option>
-                  <option>Category One</option>
-                  <option>Category Two</option>
-                  <option>Category Three</option>       
-                  <option>Category Four</option>                             
-                </select>
-              </label>
-            </div>
-
-
-          </div>
-        </div>
+      <div className="w-4/5 h-full bg-base-100 rounded-lg p-2 flex">
+        {displayWidget()}
       </div>
-
 
     </div>
 
@@ -81,3 +89,28 @@ CreateReport.getLayout = (page: any) => {
 export default CreateReport;
 
 
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      "datasources": [
+        {
+          value: 'Example Excel',
+          label: 'Example Excel',
+        },
+        {
+          value: 'Example SQL',
+          label: 'Example SQL'
+        },
+        {
+          value: 'Example API',
+          label: 'Example API'
+        },
+        {
+          value: 'Example CSV',
+          label: 'Example CSV'
+        }
+      ]
+    }
+  }
+}

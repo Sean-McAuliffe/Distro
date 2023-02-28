@@ -10,7 +10,7 @@ const Layout = ({ children }: any) => {
     const linkCSS = "hover:bg-accent hover:text-base rounded-l-xl mt-2"
     const issues = 0;
     return (
-        <div className="min-w-screen min-h-screen flex">
+        <div className="min-w-screen min-h-screen flex scrollbar-hide">
             <div className="w-[15%] min-h-screen  bg-base-content  ">
                 <div className="w-full p-3 bg-base-content h-12 text-center  justify-center mb-6">
 
@@ -33,7 +33,7 @@ const Layout = ({ children }: any) => {
                     </ul>
                 </div>
             </div>
-            <div className="w-[85%] min-h-screen bg-base-300">
+            <div className="w-[85%] min-h-screen bg-base-300 scrollbar-hide">
                 <div className="w-full bg-base-100  navbar shadow">
                     <div className="h-full px-2 text-left w-1/3  navbar-start">
 
