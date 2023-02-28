@@ -2,6 +2,8 @@ import Layout from "@/components/layout";
 import { useState } from "react";
 import BasicInfoWidget from "@/components/create_report_steps/basic_info";
 import DataSourceWidget from "@/components/create_report_steps/data_sources";
+import PrepWidget from "@/components/create_report_steps/prep";
+import AnalysisWidget from "@/components/create_report_steps/analysis";
 
 type DataSource = {
   value: string,
@@ -14,7 +16,7 @@ type CreateReportProps = {
 
 function CreateReport(props: CreateReportProps) {
 
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(3)
   const [sources, setSources] = useState([]);
 
 
@@ -42,10 +44,10 @@ function CreateReport(props: CreateReportProps) {
         return <DataSourceWidget selected={sources} func={setSources} data={props.datasources} />
       }
       case (2): {
-        return <div>2</div>
+        return <PrepWidget />
       }
       case (3): {
-        return <div>3</div>
+        return <AnalysisWidget />
       }
       case (4): {
         return <div>4</div>
@@ -56,20 +58,20 @@ function CreateReport(props: CreateReportProps) {
 
   return (
 
-    <div className="w-full flex  gap-1 p-2 ">
+    <div className="w-full flex flex-col  gap-1 p-2 ">
 
-      <div className="w-1/5 h-full bg-base-100 rounded-lg p-3 items-center justify-center">
-        <div className="mx-auto ">
-          <ul className="steps steps-vertical">
+      <div className="w-full h-full bg-base-100 rounded-lg p-3 items-center justify-center">
+    
+          <ul className="steps ">
             <li onClick={() => setStep(0)} className={setStepCSS(0)}>Basic Info</li>
             <li onClick={() => setStep(1)} className={setStepCSS(1)}>Data Sources</li>
             <li onClick={() => setStep(2)} className={setStepCSS(2)}>Prep</li>
             <li onClick={() => setStep(3)} className={setStepCSS(3)}>Analysis</li>
             <li onClick={() => setStep(4)} className={setStepCSS(4)}>Export</li>
           </ul>
-        </div>
+       
       </div>
-      <div className="w-4/5 h-full bg-base-100 rounded-lg p-2 flex">
+      <div className="w-full h-full bg-base-100 rounded-lg p-2 flex">
         {displayWidget()}
       </div>
 

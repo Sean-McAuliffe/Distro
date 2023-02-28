@@ -18,7 +18,7 @@ interface CreateReportProps {
 
 
 const DataSourceWidget = ({ data, func,selected  }: CreateReportProps) => {
-    //const [selected, setSelected] = useState([]);
+
 
 
     return (

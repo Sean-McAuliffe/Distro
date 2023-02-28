@@ -9,12 +9,8 @@
     }],
     "tasks": {
         "prep": {
-            "name": "prepare data",
-            "step_order": [
-                "filter by gender",
-                "filter by year"
-            ],
             "steps": [
+              
                 {
                     "id": "filter by gender",
                     "type": "filter",
