@@ -6,6 +6,9 @@ import PrepWidget from "@/components/create_report_steps/prep";
 import AnalysisWidget from "@/components/create_report_steps/analysis";
 import ExportWidget from "@/components/create_report_steps/export";
 
+import type { RootState } from "@/store/store";
+import {  useSelector,useDispatch } from 'react-redux'
+
 
 
 type DataSource = {
@@ -19,8 +22,9 @@ type CreateReportProps = {
 
 function CreateReport(props: CreateReportProps) {
 
-  const [activeStep, setActiveStep] = useState(4)
-  const [sources, setSources] = useState([]);
+  const reportObj = useSelector((state:RootState) => state.createReport)
+
+  const [activeStep, setActiveStep] = useState(0)
 
 
   const setStep = (index: number) => {
@@ -44,9 +48,10 @@ function CreateReport(props: CreateReportProps) {
         return <BasicInfoWidget />
       }
       case (1): {
-        return <DataSourceWidget selected={sources} func={setSources} data={props.datasources} />
+        return <DataSourceWidget  data={props.datasources} />
       }
       case (2): {
+        
         return <PrepWidget />
       }
       case (3): {
@@ -59,19 +64,61 @@ function CreateReport(props: CreateReportProps) {
   }
 
 
+  const handleNext =() => {
+    if(activeStep < 4){
+      let newStep = activeStep +1
+      setActiveStep(newStep)
+    }
+    else {
+      return
+    }
+  }
+
+  const handlePrev =() => {
+    if(activeStep > 0 ){
+      let newStep = activeStep - 1
+      setActiveStep(newStep)
+    }
+    else {
+      return
+    }
+  }
+
+
   return (
 
     <div className="w-full flex flex-col  gap-1 p-2 ">
 
-      <div className="w-full h-full bg-base-100 rounded-lg p-3 items-center justify-center">
+      <div className="w-full h-full bg-base-100 rounded-lg p-3 items-center justify-center flex">
     
-          <ul className="steps ">
+         <div className="w-3/4 ">
+         <ul className="steps ">
             <li onClick={() => setStep(0)} className={setStepCSS(0)}>Basic Info</li>
             <li onClick={() => setStep(1)} className={setStepCSS(1)}>Data Sources</li>
             <li onClick={() => setStep(2)} className={setStepCSS(2)}>Prep</li>
             <li onClick={() => setStep(3)} className={setStepCSS(3)}>Analysis</li>
             <li onClick={() => setStep(4)} className={setStepCSS(4)}>Export</li>
           </ul>
+         </div>
+          
+          <div className="w-1/4 flex gap-1">
+              <div className="w-1/3">
+                <button onClick={() => handlePrev()} className="btn btn-accent btn-md">
+                  Prev
+                </button>
+              </div>
+              <div className="w-1/3">
+                <button onClick={()=> handleNext()} className="btn btn-accent btn-md">
+                  Next
+                </button>
+              </div>
+              <div className="divider divider-horizontal"></div>
+              <div className="w-1/3">
+                <button onClick={() => alert(reportObj)} className="btn btn-info btn-md">
+                  Save
+                </button>
+              </div>
+          </div>
        
       </div>
       <div className="w-full h-full bg-base-100 rounded-lg p-2 flex">

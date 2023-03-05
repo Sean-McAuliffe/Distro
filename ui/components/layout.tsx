@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChartBarSquareIcon } from "@heroicons/react/24/outline";
+import {CircleStackIcon} from "@heroicons/react/24/outline";
 import { HomeIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Logo from "./logo";
@@ -25,9 +26,17 @@ const Layout = ({ children }: any) => {
                                 <HomeIcon className="w-5 h-5" />
                                 <span>Home</span>
                             </Link>
-                            <Link href='/create-report' className={linkCSS}>
+                        </li>
+                        <li>
+                        <Link href='/create-report' className={linkCSS}>
                                 <ChartBarSquareIcon className="w-5 h-5" />
                                 <span>Create Report</span>
+                            </Link>
+                        </li>
+                        <li>
+                        <Link href='/datasources' className={linkCSS}>
+                                <CircleStackIcon className="w-5 h-5" />
+                                <span>Data Sources</span>
                             </Link>
                         </li>
                     </ul>

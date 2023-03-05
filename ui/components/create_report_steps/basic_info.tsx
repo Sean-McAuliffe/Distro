@@ -1,7 +1,15 @@
-
+import { useSelector, useDispatch } from 'react-redux';
+import {changeName, changeCategory} from '../../store/reducers/createReportReducer';
 
 
 const BasicInfoWidget = () => {
+    const dispatch = useDispatch()
+
+    const handleNameChange=(e)=>{
+        dispatch(changeName(e.target.value))
+    }
+
+
     return (
         <div className="w-full h-full p-2 flex flex-col gap-3 card">
             <div className="card-title w-full">
@@ -13,7 +21,7 @@ const BasicInfoWidget = () => {
                     <span className="label-text">Report Name</span>
                 </label>
                 <label className="input-group">
-                    <input type="text" placeholder="My Example Report" className="input input-bordered" />
+                    <input onChange={(e) => handleNameChange(e)} type="text" placeholder="My Example Report" className="input input-bordered" />
                 </label>
             </div>
             <div className="form-control">
@@ -21,7 +29,7 @@ const BasicInfoWidget = () => {
                     <span className="label-text">Report Category</span>
                 </label>
                 <div className="input-group">
-                    <select className="select select-bordered">
+                    <select onChange={(e) => dispatch(changeCategory(e.target.value))} className="select select-bordered">
                         <option disabled selected>Pick category</option>
                         <option>Cat 1</option>
                         <option>Cat 2</option>

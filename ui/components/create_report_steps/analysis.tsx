@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from "@/store/store";
+import { addAnalysis } from "@/store/reducers/createReportReducer";
 
 
 const stepTypes = ['Group By']
@@ -13,10 +16,18 @@ const example_aggs = [
 ]
 
 const AnalysisWidget = () => {
+    const dispatch = useDispatch();
+    const steps = useSelector((state:RootState) => state.createReport.analysis)
 
-    const [rows, setRows] = useState([{ id: 0 }])
-    const handleStepName = (e, id: number) => {
-        const currentRow = rows.findIndex((row) => row.id == id);
+    const [rows, setRows] = useState(steps)
+
+    useEffect(() => {
+        dispatch(addAnalysis(rows))
+    }, [rows])
+
+
+    const handleStepName = (e:any, id: number) => {
+        const currentRow = rows.findIndex((row:any) => row.id == id);
         const updatedRow = { ...rows[currentRow], step_name: e.target.value };
         const newRows = [
             ...rows.slice(0, currentRow),
@@ -27,8 +38,8 @@ const AnalysisWidget = () => {
     }
 
 
-    const handleStepType = (e, id: number) => {
-        const currentRow = rows.findIndex((row) => row.id == id);
+    const handleStepType = (e:any, id: number) => {
+        const currentRow = rows.findIndex((row:any) => row.id == id);
         const updatedRow = { ...rows[currentRow], type: e.target.value };
         const newRows = [
             ...rows.slice(0, currentRow),
@@ -38,8 +49,8 @@ const AnalysisWidget = () => {
         setRows(newRows)
     }
 
-    const handleStepDataSource = (e, id: number) => {
-        const currentRow = rows.findIndex((row) => row.id == id);
+    const handleStepDataSource = (e:any, id: number) => {
+        const currentRow = rows.findIndex((row:any) => row.id == id);
         const updatedRow = { ...rows[currentRow], datasource: e.target.value };
         const newRows = [
             ...rows.slice(0, currentRow),
@@ -49,8 +60,8 @@ const AnalysisWidget = () => {
         setRows(newRows)
     }
 
-    const handleStepColumn = (e, id: number) => {
-        const currentRow = rows.findIndex((row) => row.id == id);
+    const handleStepColumn = (e:any, id: number) => {
+        const currentRow = rows.findIndex((row:any) => row.id == id);
         const updatedRow = { ...rows[currentRow], column: e.target.value };
         const newRows = [
             ...rows.slice(0, currentRow),
@@ -60,8 +71,8 @@ const AnalysisWidget = () => {
         setRows(newRows)
     }
 
-    const handleStepAgg = (e, id: number) => {
-        const currentRow = rows.findIndex((row) => row.id == id);
+    const handleStepAgg = (e:any, id: number) => {
+        const currentRow = rows.findIndex((row:any) => row.id == id);
         const updatedRow = { ...rows[currentRow], agg: e.target.value };
         const newRows = [
             ...rows.slice(0, currentRow),
@@ -73,7 +84,7 @@ const AnalysisWidget = () => {
 
     const addnewRow = () => {
         if (rows.length > 0) {
-            let currentMax = rows.reduce((a, b) => a.id > b.id ? a : b).id;
+            let currentMax = rows.reduce((a:any, b:any) => a.id > b.id ? a : b).id;
             let newMax = currentMax + 1
             const newRows = [...rows, { id: newMax }]
             setRows(newRows)
@@ -84,7 +95,7 @@ const AnalysisWidget = () => {
     }
 
     const removeRow = (id: number) => {
-        let newRows = rows.filter((row) => row.id !== id)
+        let newRows = rows.filter((row:any) => row.id !== id)
         setRows(newRows);
     }
 
@@ -144,7 +155,7 @@ const AnalysisWidget = () => {
                                     <label className="label">
                                         <span className="label-text">Aggregation</span>
                                     </label>
-                                    <select onChange={(e) => handleStepDataSource(e, row.id)} className="select select-bordered">
+                                    <select onChange={(e) => handleStepAgg(e, row.id)} className="select select-bordered">
                                         <option disabled selected>Pick one</option>
                                         {example_aggs.map((t) => {
                                             return (<option value={t.value}>{t.label}</option>)

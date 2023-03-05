@@ -1,11 +1,18 @@
-import { useState } from "react";
-
-
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from "@/store/store";
+import {addPrep} from "@/store/reducers/createReportReducer";
 
 
 const PrepWidget = () => {
+    const dispatch = useDispatch();
+    const steps = useSelector((state:RootState) => state.createReport.prep)
 
-    const [rows, setRows] = useState([{ id: 0 }])
+    const [rows, setRows] = useState(steps)
+
+    useEffect(() => {
+        dispatch(addPrep(rows))
+    }, [rows])
 
     const stepTypes = [
         'Filter'
@@ -27,7 +34,9 @@ const PrepWidget = () => {
             { value: "Example Excel", label: "Example Excel" },
             { value: "Example SQL", label: "Example SQL" },]
 
+    //@ts-ignore
     const handleStepName = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow], step_name: e.target.value };
         const newRows = [
@@ -37,8 +46,9 @@ const PrepWidget = () => {
         ];
         setRows(newRows)
     }
-
+//@ts-ignore
     const handleStepType = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow], type: e.target.value };
         const newRows = [
@@ -48,8 +58,9 @@ const PrepWidget = () => {
         ];
         setRows(newRows)
     }
-
+//@ts-ignore
     const handleStepDataSource = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow], datasource: e.target.value };
         const newRows = [
@@ -59,8 +70,9 @@ const PrepWidget = () => {
         ];
         setRows(newRows)
     }
-
+//@ts-ignore
     const handleStepColumn = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow],  column: e.target.value};
         const newRows = [
@@ -71,8 +83,9 @@ const PrepWidget = () => {
         setRows(newRows)
     }
 
-
+//@ts-ignore
     const handleStepOperator = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow], operator: e.target.value };
         const newRows = [
@@ -82,8 +95,9 @@ const PrepWidget = () => {
         ];
         setRows(newRows)
     }
-
+//@ts-ignore
     const handleStepValue = (e, id: number) => {
+        //@ts-ignore
         const currentRow = rows.findIndex((row) => row.id == id);
         const updatedRow = { ...rows[currentRow], value: e.target.value };
         const newRows = [
@@ -96,6 +110,7 @@ const PrepWidget = () => {
 
     const addnewRow = () => {
         if(rows.length > 0){
+            //@ts-ignore
             let currentMax = rows.reduce((a, b) => a.id > b.id ? a : b).id;
         let newMax = currentMax + 1
         const newRows = [...rows, { id: newMax }]
@@ -107,6 +122,7 @@ const PrepWidget = () => {
     }
 
     const removeRow =(id:number) => {
+        //@ts-ignore
         let newRows = rows.filter((row) => row.id !== id)
         setRows(newRows);
     }
@@ -121,14 +137,16 @@ const PrepWidget = () => {
             </div>
             <div className="card-body">
                 {
-                    rows.map((row) => {
+                    rows.map((row:any) => {
                         return (
                             <>
+                            
                                 <div key={row.id} className="w-full flex gap-2">
                                     <div className="form-control w-1/5 max-w-xs">
                                         <label className="label">
                                             <span className="label-text">Step Name</span>
                                         </label>
+                                        
                                         <input onChange={(e) => handleStepName(e, row.id)} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                                     </div>
                                     <div className="form-control w-1/5 max-w-xs">

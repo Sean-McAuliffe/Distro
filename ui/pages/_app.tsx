@@ -1,6 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeContextProvider } from '@/components/themeProvider';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
+
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -11,14 +15,16 @@ export default function App({
 
 
   return (
-    <ThemeContextProvider>
+    <Provider store={store}>
+      <ThemeContextProvider>
 
-      {getLayout(
-        <Component {...pageProps}></Component>
-      )}
+        {getLayout(
+          <Component {...pageProps}></Component>
+        )}
 
 
-    </ThemeContextProvider>
+      </ThemeContextProvider>
+    </Provider>
 
 
   );

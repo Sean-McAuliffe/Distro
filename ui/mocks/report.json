@@ -6,8 +6,7 @@
         "location": "data/",
         "name": "data.csv",
         "vars": {}
-    }],
-    "tasks": {
+    }], 
         "prep": {
             "steps": [
               
@@ -32,10 +31,6 @@
             ]
         },
         "analysis": {
-            "name": "example analysis",
-            "step_order": [
-                "group by year & count"
-            ],
             "steps": [
                 {
                     "id": "group by year & count",
@@ -49,16 +44,7 @@
                 }
             ]
         },
-        "export": {
-            "name": "export to csv test",
-            "filetype": "csv",
-            "where": {
-                "location_type": "local",
-                "vars": {
-                    "location": "./",
-                    "name": "report"
-                }
-            }
-        }
-    }
+        "export_name": "",
+        "export_filetype": ""
+    
 }
