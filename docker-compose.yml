@@ -31,7 +31,6 @@ services:
     build:
       context: ./compute
       dockerfile: Dockerfile
-    #image: compute_engine:latest
     command: "uvicorn app:app --host 0.0.0.0"
     expose: 
       - 8000
@@ -52,4 +51,3 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`app.docker.localhost`) && PathPrefix(`/`)"
       - "traefik.http.middlewares.frontend-autodetect.contenttype.autodetect=false"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-      #- "traefik.port=3000"

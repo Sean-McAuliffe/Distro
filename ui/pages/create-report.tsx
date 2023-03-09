@@ -88,9 +88,7 @@ function CreateReport(props: CreateReportProps) {
   return (
 
     <div className="w-full flex flex-col  gap-1 p-2 ">
-
       <div className="w-full h-full bg-base-100 rounded-lg p-3 items-center justify-center flex">
-    
          <div className="w-3/4 ">
          <ul className="steps ">
             <li onClick={() => setStep(0)} className={setStepCSS(0)}>Basic Info</li>
@@ -100,7 +98,6 @@ function CreateReport(props: CreateReportProps) {
             <li onClick={() => setStep(4)} className={setStepCSS(4)}>Export</li>
           </ul>
          </div>
-          
           <div className="w-1/4 flex gap-1">
               <div className="w-1/3">
                 <button onClick={() => handlePrev()} className="btn btn-accent btn-md">
@@ -119,12 +116,10 @@ function CreateReport(props: CreateReportProps) {
                 </button>
               </div>
           </div>
-       
       </div>
       <div className="w-full h-full bg-base-100 rounded-lg p-2 flex">
         {displayWidget()}
       </div>
-
     </div>
 
   )
