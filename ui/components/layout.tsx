@@ -28,6 +28,9 @@ const Layout = ({ children }: any) => {
                             </Link>
                         </li>
                         <li>
+                            <p className="menu-title">Reports</p>
+                        </li>
+                        <li>
                         <Link href='/reports' className={linkCSS}>
                                 <ChartBarSquareIcon className="w-5 h-5" />
                                 <span>All Reports</span>
@@ -38,6 +41,9 @@ const Layout = ({ children }: any) => {
                                 <ChartBarSquareIcon className="w-5 h-5" />
                                 <span>Create Report</span>
                             </Link>
+                        </li>
+                        <li>
+                            <p className="menu-title">Data Sources</p>
                         </li>
                         <li>
                         <Link href='/datasources' className={linkCSS}>

@@ -42,6 +42,7 @@ export class CouchDBHandler {
      */
     saveReport = async (doc: object) => {
         try {
+            //@ts-ignore
             let res = await axios.put(`${this.reportURL}/${doc.name}`, doc)
             if (res.status == 201 || res.status == 202) {
                 return { "status": 'OK' }
